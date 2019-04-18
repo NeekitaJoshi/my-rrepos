@@ -1,0 +1,17 @@
+library(Kendall)
+library(trend)
+library(readxl)
+library(mice)
+setwd("C:/Users/siu854422126/OneDrive - Southern Illinois University/4.Spring2019/2.GEOG 591/Assignment/Assignment 4/Neekita/Groundwater well/Anomaly/selected station/output/corrected_output/")
+t1 = read_xls("251922080340701.xls")
+t2=mice(t1)
+t1=complete(t2)
+t1[1:192,]
+TS=ts(t1$c,frequency=12,start=c(2002,4))
+TS
+plot(TS)
+plot(decompose(TS))
+t1
+MK = MannKendall(TS)
+summary(MK)
+sens.slope(TS)
