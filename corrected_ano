@@ -1,0 +1,20 @@
+clear
+clc
+tic
+%---------------------------------------
+%Import daily tavg observations into Matlab
+stations = dir('*.xls');
+
+for p = 1:length(stations)
+data1 = importdata(stations(p).name);
+count = 1;
+for i = 2004:2009
+    count = count+1;
+    a = find(data1(:,1)==i);
+    meandata(i-2003,1) = nanmean(data1(a,3));  
+end  
+    meandata1 = sum(meandata(:,1));
+    avg = meandata1/(count-1);
+    data1(:,4) = data1(:,3)-avg;
+csvwrite([stations(p).name '_wellanom.csv'],data1);
+end
